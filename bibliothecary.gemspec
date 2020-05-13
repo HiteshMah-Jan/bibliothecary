@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "toml-rb", "~> 1.0"
+  spec.add_dependency "toml-rb", "~> 2.0"
   spec.add_dependency "librariesio-gem-parser"
   spec.add_dependency "ox", ">= 2.8.1"
   spec.add_dependency "typhoeus"
@@ -28,9 +28,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "strings-ansi"
   spec.add_dependency "strings"
 
-  spec.add_development_dependency "bundler", "~> 1.11"
+  spec.add_development_dependency "bundler"
   spec.add_development_dependency "pry"
-  spec.add_development_dependency "rake", "~> 12.0"
+  spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "webmock"
   spec.add_development_dependency "vcr"
