@@ -45,6 +45,23 @@ describe Bibliothecary::Parsers::Go do
     })
   end
 
+  it 'parses depenencies from go.mod with a replace statement' do
+    expect(described_class.analyse_contents('go.mod', load_fixture('go.mod.replace'))).to eq({
+      :platform=>"go",
+      :path=>"go.mod",
+      :dependencies=>[
+        {:name=>"github.com/ipld/go-car",
+         :requirement=>"v0.1.0",
+         :type=>"runtime"},
+        {:name=>"github.com/urfave/cli",
+         :requirement=>"v1.22.4",
+         :type=>"runtime"}
+      ],
+      kind: 'manifest',
+      success: true
+    })
+  end
+
   it 'parses depenencies from go.sum' do
     expect(described_class.analyse_contents('go.sum', load_fixture('go.sum'))).to eq({
       :platform=>"go",
