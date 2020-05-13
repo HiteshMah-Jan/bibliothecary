@@ -111,6 +111,7 @@ module Bibliothecary
         file_contents.lines.map(&:strip).each do |line|
           next if line.match(GOMOD_IGNORABLE_REGEX)
           next if line.match(/\/\/ indirect$/)
+          next if line.match(/=>/)
           if match = line.gsub(/^require/, '').gsub(/(\/\/(.*))/, '').match(GOMOD_REGEX)
             deps << {
               name: match[1].strip,
