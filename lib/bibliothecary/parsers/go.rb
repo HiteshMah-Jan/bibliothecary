@@ -110,7 +110,7 @@ module Bibliothecary
         deps = []
         file_contents.lines.map(&:strip).each do |line|
           next if line.match(GOMOD_IGNORABLE_REGEX)
-          if match = line.gsub(/(\/\/(.*))/, '').match(GOMOD_REGEX)
+          if match = line.gsub(/^require/, '').gsub(/(\/\/(.*))/, '').match(GOMOD_REGEX)
             deps << {
               name: match[1].strip,
               requirement: match[2].strip || '*',

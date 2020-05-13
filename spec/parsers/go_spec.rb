@@ -31,6 +31,20 @@ describe Bibliothecary::Parsers::Go do
     })
   end
 
+  it 'parses depenencies from go.mod with single depenency' do
+    expect(described_class.analyse_contents('go.mod', load_fixture('go.mod.single'))).to eq({
+      :platform=>"go",
+      :path=>"go.mod",
+      :dependencies=>[
+        {:name=>"github.com/google/go-cmp",
+         :requirement=>"v0.3.1",
+         :type=>"runtime"}
+      ],
+      kind: 'manifest',
+      success: true
+    })
+  end
+
   it 'parses depenencies from go.sum' do
     expect(described_class.analyse_contents('go.sum', load_fixture('go.sum'))).to eq({
       :platform=>"go",
