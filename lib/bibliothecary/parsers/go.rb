@@ -8,7 +8,7 @@ module Bibliothecary
 
       GPM_REGEXP = /^(.+)\s+(.+)$/
       GOMOD_REGEX = /^(.+)\s+(.+)$/
-      GOMOD_IGNORABLE_REGEX = /^(replace\s|module\s|require\s+\(|go\s|\))/m
+      GOMOD_IGNORABLE_REGEX = /^(exclude\s|replace\s|module\s|require\s+\(|go\s|\))/m
       GOSUM_REGEX = /^(.+)\s+(.+)\s+(.+)$/
 
       def self.mapping
