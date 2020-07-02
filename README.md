@@ -149,6 +149,8 @@ All available config options are in: https://github.com/librariesio/bibliothecar
 - Hackage
   - *.cabal
   - cabal.config
+- Docker
+  - docker-compose.yml
 
 ## Development
 
