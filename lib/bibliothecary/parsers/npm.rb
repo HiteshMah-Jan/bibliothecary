@@ -1,4 +1,5 @@
 require 'json'
+require 'yarn_lock_parser'
 
 module Bibliothecary
   module Parsers
@@ -61,16 +62,14 @@ module Bibliothecary
       end
 
       def self.parse_yarn_lock(file_contents)
-        response = Typhoeus.post("#{Bibliothecary.configuration.yarn_parser_host}/parse", body: file_contents)
+        # TODO support yarnlock file v2 (yaml)
+        deps = YarnLockParser::Parser.parse_string(file_contents)
 
-        raise Bibliothecary::RemoteParsingError.new("Http Error #{response.response_code} when contacting: #{Bibliothecary.configuration.yarn_parser_host}/parse", response.response_code) unless response.success?
-
-        json = JSON.parse(response.body, symbolize_names: true)
-        json.uniq.map do |dep|
+        deps.map do |dep|
           {
             name: dep[:name],
             requirement: dep[:version],
-            type: dep[:type]
+            type: 'runtime'
           }
         end
       end
