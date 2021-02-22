@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# from https://github.com/eldemcan/yarn_lock
 
 module YarnLockParser
   class Parser
