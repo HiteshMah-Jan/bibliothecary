@@ -43,7 +43,7 @@ module Bibliothecary
     end
 
     def package_managers
-      Bibliothecary::Parsers.constants.map{|c| Bibliothecary::Parsers.const_get(c) }.sort_by{|c| c.to_s.downcase }
+      Bibliothecary::Parsers.constants.reject{|c| @configuration.ignored_package_managers.map(&:downcase).include?(c.to_s.downcase) }.map{|c| Bibliothecary::Parsers.const_get(c) }.sort_by{|c| c.to_s.downcase }
     end
 
     def load_file_info_list(path)
