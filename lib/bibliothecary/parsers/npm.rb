@@ -1,5 +1,4 @@
 require 'json'
-require 'yarn_lock_parser'
 
 module Bibliothecary
   module Parsers
@@ -63,15 +62,26 @@ module Bibliothecary
 
       def self.parse_yarn_lock(file_contents)
         # TODO support yarnlock file v2 (yaml)
-        deps = YarnLockParser::Parser.parse_string(file_contents)
 
-        deps.map do |dep|
-          {
-            name: dep[:name],
-            requirement: dep[:version],
-            type: 'runtime'
-          }
+        lines = file_contents.split("\n\n")[1..-1]
+
+        deps = []
+
+        lines.each do |line|
+          sublines = line.gsub(/^\s/, '').split("\n")
+          name = sublines[0]
+          name = name.gsub!("\"", '') if name[0] == '"'
+          if name[0] == '@'
+            name = "@" + name.gsub("\n", '').split("@")[1]
+          else
+            name = name.split("@")[0]
+          end
+
+          version = sublines[1].gsub("version", '').gsub("\"", '').strip
+          deps << { name: name, requirement: version, type: 'runtime' }
         end
+
+        deps
       end
     end
   end
