@@ -1,5 +1,6 @@
 require 'yaml'
 require 'json'
+require 'tomlrb'
 
 module Bibliothecary
   module Parsers
@@ -97,12 +98,12 @@ module Bibliothecary
       end
 
       def self.parse_dep_toml(file_contents)
-        manifest = TomlRB.parse file_contents
+        manifest = Tomlrb.parse file_contents
         map_dependencies(manifest, 'constraint', 'name', 'version', 'runtime')
       end
 
       def self.parse_dep_lockfile(file_contents)
-        manifest = TomlRB.parse file_contents
+        manifest = Tomlrb.parse file_contents
         map_dependencies(manifest, 'projects', 'name', 'revision', 'runtime')
       end
 
